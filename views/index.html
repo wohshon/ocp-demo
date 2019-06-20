@@ -58,14 +58,19 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>OpenShift Container Platform Demo</h1>
+        <h1>OpenShift Container Platform Demo - v1.0 </h1>
         <p class="lead">
 
-          <h1>V1.0 : Hello OpenShift!!!</h1>
-	<div id="ipLabel" style="font-weight:bold;font-size: 40px"></>
+          <h3> (refresh page to increase counter) </h3>
+		<div id="Counter" style="font-weight:bold;font-size: 40px">Counter:  <%=pageCountMessage%></>
  
+		<div id="ipLabel" style="font-size: 25px"></>
+
+
+		</div>
         </p>
       </div>
+
     </div><!-- /.container -->
 
 
@@ -88,7 +93,7 @@ $.ajax({
 	dataType: 'text',
 	success: function(data) {
 	  //alert(data);
-	  $('#ipLabel').html(data);
+	  $('#ipLabel').html('Page is served from OCP cluster at: '+data);
 	},
 	type: 'GET'
 	});
