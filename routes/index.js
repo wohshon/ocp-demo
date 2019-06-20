@@ -4,6 +4,18 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 res.sendfile('views/index.html');
+//   req.url='/'+process.env.SITE;
+//   next();
+});
+
+router.get('/getSite', function(req, res, next) {
+console.log('get site info '+process.env.SITE);
+res.status(200).send(process.env.SITE);
+});
+
+
+router.get('/'+process.env.SITE, function(req, res, next) {
+res.sendfile('views/index-'+process.env.SITE+'.html');
 });
 
 router.get('/rest/hello/:name', function(req, res, next) {
