@@ -1,7 +1,14 @@
 var express = require('express');
 var request= require('request');
 var router = express.Router();
-const db_url='mongodb://'+process.env.DATABASE_USER+':'+process.env.DATABASE_PASSWORD+'@'+process.env.MONGODB_SVC+':'+process.env.MONGODB_SERVICE_PORT+'/';
+var db_url='';
+if (process.env.DATABASE_USER && process.env.DATABASE_PASSWORD) {
+  db_url='mongodb://'+process.env.DATABASE_USER+':'+process.env.DATABASE_PASSWORD+'@'+process.env.MONGODB_SVC+':'+process.env.MONGODB_SERVICE_PORT+'/';
+} else {
+
+  db_url='mongodb://'+process.env.MONGODB_SVC+':'+process.env.MONGODB_SERVICE_PORT+'/';
+}
+console.log(db_url);
 //var db_user=process.env.DB_USER;
 //var db_password=process.env.DB_PASSWORD;
 //var mongodb=require('mongodb');
