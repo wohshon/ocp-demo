@@ -25,11 +25,11 @@ router.get('/', function(req, res, next) {
         // initialized.
         // Use connect method to connect to the server
         MongoClient.connect(db_url, function(err, client) {
-          if (!err)
-          console.log("Connected successfully to server");
+          if (!err) {
+           console.log("Connected successfully to server");
 
-          const  db = client.db('countDB');
-          if (db) {
+           const  db = client.db('countDB');
+           if (db) {
                 const col= db.collection('counts');
                 col.count({}, function(error, numOfDocs) {
                         console.log('I have '+numOfDocs+' documents in my collection');
@@ -37,27 +37,32 @@ router.get('/', function(req, res, next) {
                         if (numOfDocs==0) {
                           col.insertOne({id: 1, count: 0, timestamp: Date.now()}, function(err, r) {
                                 if (err)
-                                 console.log(err.message);
-                                console.log('inserted '+r.insertedCount);
-                                client.close();
-                          })
-                        } else {
+                                  console.log(err.message);
+                                 console.log('inserted '+r.insertedCount);
+                                 client.close();
+                           })
+                         } else {
 
-                               col.findOneAndUpdate({id: 1}, {$inc: {count: 1}}, {
-                                returnOriginal: false
-                                //, sort: [[a,1]]
-                                , upsert: true
-                                }, function(err, r) {
-                                        console.log('updated '+Object.keys(r.value));
-                                        res.render('index.html', { pageCountMessage : r.value.count});
-                                        client.close();
-                                });
+                                col.findOneAndUpdate({id: 1}, {$inc: {count: 1}}, {
+                                 returnOriginal: false
+                                 //, sort: [[a,1]]
+                                 , upsert: true
+                                 }, function(err, r) {
+                                         console.log('updated '+Object.keys(r.value));
+                                         res.render('index.html', { pageCountMessage : r.value.count});
+                                         client.close();
+                                 });
 
-                        }
-                });//count
+                         }
+                 });//count
 
-          } //if db
-
+           } //if db
+	 
+          }//if not error
+        else {
+		console.log(Object.keys(err));
+		console.log(err.message);
+	}
         }); //MongoClient
 
 
