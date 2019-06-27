@@ -86,19 +86,20 @@ function refresh() {
 $.ajax({
         url: '/getCount',
         data: {
-          format: 'text'
+          format: 'json'
         },
         error: function() {
           $('#count').html('123');
         },
-        dataType: 'text',
+        dataType: 'json',
         success: function(data) {
           //alert(data);
-          $('#count').html(data.count);
+	 console.log('updated count '+data);
+ 
+         $('#count').html(data.count);
         },
         type: 'GET'
         });
-
  console.log('updated count');
 }
 $(document).ready(function() {
