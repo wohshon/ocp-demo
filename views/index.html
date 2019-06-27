@@ -58,7 +58,7 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>OpenShift Container Platform Demo - v1.0 </h1>
+        <h1>OpenShift Container Platform Demo - v1.1 </h1>
         <p class="lead">
 
           <h3> (refresh page to increase counter) </h3>
@@ -125,7 +125,7 @@ var poll = (promiseFn, time) => promiseFn().then(
              sleep(time).then(() => poll(promiseFn, time)))
 
 // Greet the World every second
-poll(() => new Promise(() => refresh()), 1000)
+poll(() => new Promise(() => refresh()), 2000)
 });
 </script>
   </body>
