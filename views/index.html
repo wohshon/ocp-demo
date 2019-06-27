@@ -58,11 +58,11 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>OpenShift Container Platform Demo - v2.0000 </h1>
+        <h1>OpenShift Container Platform Demo - v1.0 </h1>
         <p class="lead">
 
           <h3> (refresh page to increase counter) </h3>
-		<div id="Counter" style="font-weight:bold;font-size: 40px">Counter:  <%=pageCountMessage%></>
+		<div id="Counter" style="font-weight:bold;font-size: 40px">Counter:  <div id="count"><%=pageCountMessage%></div> </>
  
 		<div id="ipLabel" style="font-size: 25px"></>
 
@@ -82,6 +82,27 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script>
+function refresh() {
+$.ajax({
+        url: '/getCount',
+        data: {
+          format: 'text'
+        },
+        error: function() {
+          $('#count').html('123');
+        },
+        dataType: 'text',
+        success: function(data) {
+          //alert(data);
+          $('#count').html(data.count);
+        },
+        type: 'GET'
+        });
+
+ console.log('updated count');
+}
+$(document).ready(function() {
+
 $.ajax({
 	url: '/getSite',
 	data: {
@@ -97,6 +118,14 @@ $.ajax({
 	},
 	type: 'GET'
 	});
+
+var sleep = time => new Promise(resolve => setTimeout(resolve, time))
+var poll = (promiseFn, time) => promiseFn().then(
+             sleep(time).then(() => poll(promiseFn, time)))
+
+// Greet the World every second
+poll(() => new Promise(() => refresh()), 1000)
+});
 </script>
   </body>
 </html>
