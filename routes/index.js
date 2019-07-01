@@ -30,6 +30,7 @@ router.get('/', function(req, res, next) {
            console.log("Connected successfully to server");
 
            const  db = client.db('countDB');
+           console.log("got db? "+db);
            if (db) {
                 const col= db.collection('counts');
                 col.count({}, function(error, numOfDocs) {
