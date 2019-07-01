@@ -123,7 +123,7 @@ router.get('/getCount', function(req, res, next) {
                 	const col= db.collection('counts');
                 	col.find({id:1}).limit(1).toArray(function(err, docs) {
                         	console.log(docs);
-				if (docs.lengh>0) {
+				if (docs.length>0) {
 				//res.render('index.html', { pageCountMessage : docs[0].count});
                                   res.json({count: docs[0].count});
                             	  client.close();
